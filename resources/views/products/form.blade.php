@@ -5,16 +5,6 @@
     <h2 class="text-black">Student Registration Form</h2>
 </div>
 
-<style>
-    /* Hide all tab content by default */
-    /* .tab-content {
-        display: none;
-    } */
-    .tab-menu-item.active {
-  background-color: red !important;
-  color: white;
-}
-</style>
 
 <div class="flex flex-col">
     <ul class="flex ">

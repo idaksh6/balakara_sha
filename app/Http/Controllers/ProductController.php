@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Products;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 use PDF;
@@ -19,9 +20,30 @@ class ProductController extends Controller
     public function index()
     {
         $products = Products::paginate(2);
-
         return view('products.index', ['data' => $products]);
+    
+        
     }
+      //////////////DASHBOARD VIEW//////////////////
+      public function dashboard(Request $request)
+      {
+          $totalStudents = Products::count();
+      
+          $categoryCounts = Products::select('category', DB::raw('count(*) as count'))
+              ->groupBy('category')
+              ->get();
+      
+          $query = Products::query();
+      
+          // Apply order by clause
+          $query->orderBy('created_at', 'desc');
+      
+          $data = $query->paginate(3); // Set the number of items per page (e.g., 10)
+      
+          return view('dashboard', compact('data', 'totalStudents', 'categoryCounts'));
+      }
+      
+      
 
     //////////////ADD//////////////////
     public function add()

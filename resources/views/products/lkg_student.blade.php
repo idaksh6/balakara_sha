@@ -186,7 +186,7 @@
                             <div class="form-group md:flex items-center">
                                 <label for="fathers_contact_details" class="md:w-1/6">Fathers Phone Number</label>
                                 <div class="md:w-5/6">  
-                                    <input type="text" class="form-control" id="fathers_contact_details"
+                                    <input type="number" class="form-control" id="fathers_contact_details"
                                         name="fathers_contact_details"
                                         value="{{ old('fathers_contact_details',isset($product) ? $product->fathers_contact_details : '') }}">
                                         @error('fathers_contact_details')
@@ -244,7 +244,7 @@
                             <div class="form-group md:flex items-center">
                                 <label for="mothers_contact_details" class="md:w-1/6">mothers Phone Number</label>
                                 <div class="md:w-5/6">  
-                                    <input type="text" class="form-control" id="mothers_contact_details"
+                                    <input type="number" class="form-control" id="mothers_contact_details"
                                         name="mothers_contact_details"
                                         value="{{ old('mothers_contact_details',isset($product) ? $product->mothers_contact_details : '') }}">
                                         @error('mothers_contact_details')

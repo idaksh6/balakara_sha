@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('student_image');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('dob');
+            $table->date('dob');
             $table->string('gender');
             $table->string('academic_year');
             $table->string('grade');
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('mothers_email_details');
             $table->string('mothers_contact_details');
             $table->string('mothers_occupation');
-            $table->string('address');
+            $table->text('address');
             $table->string('payment_details');
             $table->string('category');
             $table->timestamps();

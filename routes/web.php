@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+
  
 Route::get('/', function () {
     return view('auth/login');
@@ -12,6 +13,8 @@ Route::get('/', function () {
 
 
 Route::controller(AuthController::class)->group(function () {
+
+   
     Route::get('register', 'register')->name('register');
     Route::post('register', 'registerSave')->name('register.save');
  
@@ -26,7 +29,10 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
  
+
+    
     Route::controller(ProductController::class)->prefix('products')->group(function () {
+        Route::get('dahboard', 'dashboard')->name('dashboard');
         Route::get('', 'index')->name('products');
         Route::get('add', 'add')->name('products.add');
         

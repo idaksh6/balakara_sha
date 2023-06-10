@@ -2,20 +2,17 @@
 
 namespace App\Exports;
 
-use App\Models\products;
-use Carbon\Carbon;
+use App\Models\Products;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Concerns\Styles\Style;
-use Maatwebsite\Excel\Events\AfterSheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-
-class StudentExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class StudentExport implements FromCollection, WithHeadings, ShouldAutoSize, WithMapping, WithStyles
 {
-
     protected $student_name;
     protected $category;
     protected $academic_year;
@@ -27,11 +24,10 @@ class StudentExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
         $this->academic_year = $academic_year;
     }
 
-
     public function collection()
     {
-
         $query = Products::select(
+            'student_image',
             'first_name',
             'last_name',
             'dob',
@@ -60,10 +56,8 @@ class StudentExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
             $query->where(function ($q) use ($student_name) {
                 $q->where('first_name', 'like', "%$student_name%")
                     ->orWhere('last_name', 'like', "%$student_name%");
-
             });
         }
-
 
         if (!empty($this->category)) {
             $query->where('category', $this->category);
@@ -73,17 +67,13 @@ class StudentExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
             $query->where('academic_year', $this->academic_year);
         }
 
-        $data = $query->get();
-
-        return $data;
-
-
+        return $query->get();
     }
 
     public function headings(): array
     {
-        // Define the headings for the Excel file
         return [
+            'Student Image',
             'First Name',
             'Last Name',
             'Dob',
@@ -104,15 +94,43 @@ class StudentExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
             'Mothers Occupation',
             'Address',
             'Payment Details',
-            'Category'
+            'Category',
+        ];
+    }
 
+    public function map($row): array
+    {
+        $imagePath = $row->student_image ? public_path('student_Photos/' . $row->student_image) : '';
+
+        return [
+            $imagePath ? '=HYPERLINK("' . $imagePath . '", "View Image")' : '', // Empty box if no image selected
+            $row->first_name,
+            $row->last_name,
+            $row->dob,
+            $row->gender,
+            $row->academic_year,
+            $row->grade,
+            $row->language,
+            $row->sibling_details,
+            $row->fathers_name,
+            $row->fathers_qualification,
+            $row->fathers_email_details,
+            $row->fathers_contact_details,
+            $row->fathers_occupation,
+            $row->mothers_name,
+            $row->mothers_qualification,
+            $row->mothers_email_details,
+            $row->mothers_contact_details,
+            $row->mothers_occupation,
+            $row->address,
+            $row->payment_details,
+            $row->category,
         ];
     }
 
     public function styles(Worksheet $sheet)
     {
         return [
-            // Style the header row to make it bold
             1 => ['font' => ['bold' => true]],
         ];
     }

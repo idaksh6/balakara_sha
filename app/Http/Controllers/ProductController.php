@@ -42,16 +42,15 @@ class ProductController extends Controller
       
           return view('dashboard', compact('data', 'totalStudents', 'categoryCounts'));
       }
-      
-      
 
-    //////////////ADD//////////////////
-    public function add()
-    {
-        $categories = Category::get();
+        //////////////ADD FORM //////////////////
+      public function add()
+      {
+          $categories = Category::get();
+  
+          return view('products.form', ['categories' => $categories]);
+      }
 
-        return view('products.form', ['categories' => $categories]);
-    }
     //////////////SAVE LKG//////////////////
     public function saveLKG(Request $request)
     {

@@ -28,6 +28,7 @@ class ProductController extends Controller
       public function dashboard(Request $request)
       {
           $totalStudents = Products::count();
+          
       
           $categoryCounts = Products::select('category', DB::raw('count(*) as count'))
               ->groupBy('category')
@@ -398,45 +399,50 @@ class ProductController extends Controller
 
 
     //////////////EXPORT TO PDF//////////////////
-    public function exportPDF(Request $request)
-    {
+   
+public function exportPDF(Request $request)
+{
+    $studentName = $request->input('student_name');
+    $category = $request->input('category');
+    $academicYear = $request->input('academic_year');
 
-        $studentName = $request->input('student_name');
-        $category = $request->input('category');
-        $academicYear = $request->input('academic_year');
+    $query = Products::select(
+        'student_image',
+        'first_name',
+        'last_name',
+        'dob',
+        'gender',
+        'academic_year',
+        'category'
+    );
 
-        $query = Products::select(
-            'first_name',
-            'last_name',
-            'dob',
-            'gender',
-            'academic_year',
-            'category'
-        );
-
-        if (!empty($studentName)) {
-            $student_name = $studentName;
-            $query->where(function ($q) use ($student_name) {
-                $q->where('first_name', 'like', "%$student_name%")
-                    ->orWhere('last_name', 'like', "%$student_name%");
-            });
-        }
-
-        if (!empty($category)) {
-            $query->where('category', $category);
-        }
-
-        if (!empty($academicYear)) {
-            $query->where('academic_year', $academicYear);
-        }
-
-        $data = $query->get();
-
-        $pdf = PDF::loadView('products.export-pdf', compact('data'));
-
-        return $pdf->download('student_registration.pdf');
-
+    if (!empty($studentName)) {
+        $student_name = $studentName;
+        $query->where(function ($q) use ($student_name) {
+            $q->where('first_name', 'like', "%$student_name%")
+                ->orWhere('last_name', 'like', "%$student_name%");
+        });
     }
+
+    if (!empty($category)) {
+        $query->where('category', $category);
+    }
+
+    if (!empty($academicYear)) {
+        $query->where('academic_year', $academicYear);
+    }
+
+    $data = $query->get();
+
+    // Modify the data to include the full image URLs
+    foreach ($data as $item) {
+        $item->student_image = $item->student_image ? public_path('student_Photos/' . $item->student_image) : '';
+    }
+    
+
+    $pdf = PDF::loadView('products.export-pdf', compact('data'));
+    return $pdf->download('student_registration.pdf');
+}
 
 
     //////////////////View Nursery FORM//////////////

@@ -1,22 +1,19 @@
-
-
-
 <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-    <div class="sidebar-brand-icon">
-        <i class="fas fa-school"></i>
-    </div>
-    <div class="sidebar-brand-text mx-3">BALAKARA SHARADHE</div>
-</a>
+        <div class="sidebar-brand-icon">
+            <i class="fas fa-school"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">BALAKARA SHARADHE</div>
+    </a>
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('dashboard') }}">
-        <i class="fas fa-chart-bar"></i>
+            <i class="fas fa-chart-bar"></i>
             <span>Dashboard</span>
         </a>
     </li>
@@ -28,10 +25,11 @@
     </li>
 
     <!-- Nav Item - Student Form -->
-    <li class="nav-item relative   ">
+    <li class="nav-item relative" id="studentDropdown">
         <a class="nav-link" href="javascript:void(0);">
             <i class="fas fa-fw fa-comments"></i>
             <span class="">Add Students</span>
+            <i class="fas fa-angle-right ml-auto"></i>
         </a>
         <div class="absolute bg-white rounded-md shadow-lg transform -translate-x-1/2 left-1/2 hidden"
             style="width: 100%; max-width: 200px;">
@@ -48,19 +46,21 @@
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
-
+ 
 </ul>
 
 <script>
-// JavaScript code to toggle the visibility of the dropdown on click
 document.addEventListener('DOMContentLoaded', function() {
-    const dropdownToggle = document.querySelector('.nav-item.relative');
+    const dropdownToggle = document.getElementById('studentDropdown');
+    const dropdownIcon = dropdownToggle.querySelector('.fa-angle-right');
+    const dropdownMenu = dropdownToggle.querySelector('.absolute');
 
     dropdownToggle.addEventListener('click', function(event) {
-        // Prevents the default behavior of the anchor tag
+      
 
-        const dropdownMenu = this.querySelector('.absolute');
         dropdownMenu.classList.toggle('hidden');
+        dropdownIcon.classList.toggle('fa-angle-down');
+        dropdownIcon.classList.toggle('fa-angle-right');
     });
 });
 </script>

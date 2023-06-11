@@ -19,7 +19,7 @@ class ProductController extends Controller
     //////////////INDEX VIEW //////////////////
     public function index()
     {
-        $products = Products::paginate(2);
+        $products = Products::paginate(3);
         return view('products.index', ['data' => $products]);
     
         
@@ -369,7 +369,7 @@ class ProductController extends Controller
             $query->where('academic_year', $academicYear);
         }
 
-        $data = $query->paginate(1);
+        $data = $query->paginate(2);
 
         if ($data->isEmpty()) {
             $noDataFoundMessage = 'No matching results found';

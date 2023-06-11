@@ -40,7 +40,8 @@
         {{ session('success') }}
     </div>
     @endif
-    <div class="card-header py-3 flex md:flex-row flex-col md:gap-0 gap-5 md:justify-between justify-content items-center ">
+    <div
+        class="card-header py-3 flex md:flex-row flex-col md:gap-0 gap-5 md:justify-between justify-content items-center ">
         <h6 class="m-0 font-weight-bold text-primary">Manage Students</h6>
 
         <div class="dropdown">
@@ -78,7 +79,8 @@
                             {{ $year }}-{{ $year + 1 }}</option>
                         @endfor
                     </select>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 md:rounded-r-lg rounded-l-lg md:rounded-l-none rounded-r-lg "
+                    <button
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 md:rounded-r-lg rounded-l-lg md:rounded-l-none rounded-r-lg "
                         type="submit">Search</button>
                 </div>
             </form>
@@ -185,4 +187,23 @@ function deleteProduct(productId) {
         }
     });
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all pagination links
+    var paginationLinks = document.querySelectorAll('.pagination a');
+
+    // Add event listener to each pagination link
+    paginationLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent the default link behavior
+
+            // Get the URL of the clicked link
+            var url = this.getAttribute('href');
+
+            // Navigate to the new URL without refreshing the page
+            window.location.href = url;
+        });
+    });
+});
 </script>

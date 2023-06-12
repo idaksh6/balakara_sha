@@ -6,6 +6,19 @@
 </div>
 
 
+@if ($message = Session::get('success'))
+
+<div class="container-fluid pt-2">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ $message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="myAlertCloseButton">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
+@endif
+
 <form id="myForm" action="{{ isset($product) ? route('products.update', $product->id) : route('products.saveukg') }}"
     method="post" enctype="multipart/form-data">
     @csrf

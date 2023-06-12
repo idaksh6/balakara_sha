@@ -5,6 +5,20 @@
     <h2 class="text-black">LKG Students Registration Form</h2>
 </div>
 
+@if ($message = Session::get('success'))
+
+<div class="container-fluid pt-2">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ $message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="myAlertCloseButton">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
+@endif
+
+
 
 <form id="myForm" action="{{ isset($product) ? route('products.update', $product->id) : route('products.savelkg') }}"
     method="post" enctype="multipart/form-data">
@@ -22,7 +36,8 @@
                             <label for="student_image_upload">
                                 <img id="student_image_preview_lkg"
                                     src="{{ isset($product) && $product->student_image ? asset('student_Photos/'.$product->student_image) : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_RlT-ytB9A_TQFLKMqVYpdJiiRbckTCThmw&usqp=CAU' }}"
-                                    alt="Default Image" style="height: 100px; width: 100px; cursor: pointer;object-fit:contain;">
+                                    alt="Default Image"
+                                    style="height: 100px; width: 100px; cursor: pointer;object-fit:contain;">
                             </label>
                             <input id="student_image_upload_lkg" type="file" name="student_image" accept="image/*"
                                 style="display: none" onchange="showFile_lkg(event)">
@@ -362,8 +377,6 @@ document.getElementById('dob').addEventListener('change', function() {
         }
     }
 });
-
-
 </script>
 
 @endsection

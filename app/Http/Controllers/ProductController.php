@@ -117,6 +117,8 @@ class ProductController extends Controller
         $student->payment_details = $request->input('payment_details');
         $student->category = 'lkg';
         $student->save();
+
+        return redirect()->back()->with('success', 'Student Registered successfully.');
     }
 
     //////////////SAVE UKG//////////////////
@@ -187,6 +189,7 @@ class ProductController extends Controller
         $student->payment_details = $request->input('payment_details');
         $student->category = 'ukg';
         $student->save();
+        return redirect()->back()->with('success', 'Student Registered successfully.');
 
     }
 
@@ -255,6 +258,7 @@ class ProductController extends Controller
         $student->payment_details = $request->input('payment_details');
         $student->category = 'nursery';
         $student->save();
+        return redirect()->back()->with('success', 'Student Registered successfully.');
     }
 
 
@@ -276,67 +280,73 @@ class ProductController extends Controller
 
     //////////////UPDATE FORM//////////////////
 
-    public function update($id, Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'gender' => 'required',
-            'dob' => 'required',
-            'grade' => 'required',
-            'language' => 'required',
-            'fathers_name' => 'required',
-            'fathers_qualification' => 'required',
-            'fathers_contact_details' => 'required',
-            'fathers_occupation' => 'required',
-            'mothers_name' => 'required',
-            'mothers_qualification' => 'required',
-            'mothers_contact_details' => 'required',
-            'mothers_occupation' => 'required',
-            'payment_details' => 'required',
-            'student_image' => 'nullable',
-            'address' => 'required',
-            'sibling_details' => 'nullable'
-        ]);
+public function update($id, Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'gender' => 'required',
+        'dob' => 'required',
+        'grade' => 'required',
+        'language' => 'required',
+        'fathers_name' => 'required',
+        'fathers_qualification' => 'required',
+        'fathers_contact_details' => 'required',
+        'fathers_occupation' => 'required',
+        'mothers_name' => 'required',
+        'mothers_qualification' => 'required',
+        'mothers_contact_details' => 'required',
+        'mothers_occupation' => 'required',
+        'payment_details' => 'required',
+        'student_image' => 'nullable',
+        'address' => 'required',
+        'sibling_details' => 'nullable'
+    ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        $student = Products::find($id);
-
-        if ($request->hasFile('student_image')) {
-            $file = $request->file('student_image');
-            $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('student_Photos'), $file_name);
-            $student->student_image = $file_name;
-        }
-
-        $student->first_name = $request->input('first_name');
-        $student->last_name = $request->input('last_name');
-        $student->gender = $request->input('gender');
-        $student->dob = $request->input('dob');
-        $student->academic_year = $request->input('academic_year');
-        $student->grade = $request->input('grade');
-        $student->language = $request->input('language');
-        $student->sibling_details = $request->input('sibling_details');
-        $student->fathers_name = $request->input('fathers_name');
-        $student->fathers_qualification = $request->input('fathers_qualification');
-        $student->fathers_email_details = $request->input('fathers_email_details');
-        $student->fathers_contact_details = $request->input('fathers_contact_details');
-        $student->fathers_occupation = $request->input('fathers_occupation');
-        $student->mothers_name = $request->input('mothers_name');
-        $student->mothers_qualification = $request->input('mothers_qualification');
-        $student->mothers_email_details = $request->input('mothers_email_details');
-        $student->mothers_contact_details = $request->input('mothers_contact_details');
-        $student->mothers_occupation = $request->input('mothers_occupation');
-        $student->address = $request->input('address');
-        $student->payment_details = $request->input('payment_details');
-        $student->category = 'lkg';
-
-        $student->save();
-        return redirect()->back()->with('success', 'Student updated successfully.');
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
     }
+
+    $student = Products::find($id);
+
+    if ($request->hasFile('student_image')) {
+        $file = $request->file('student_image');
+        $file_name = time() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('student_Photos'), $file_name);
+        $student->student_image = $file_name;
+    }
+
+    $student->first_name = $request->input('first_name');
+    $student->last_name = $request->input('last_name');
+    $student->gender = $request->input('gender');
+    $student->dob = $request->input('dob');
+    $student->academic_year = $request->input('academic_year');
+    $student->grade = $request->input('grade');
+    $student->language = $request->input('language');
+    $student->sibling_details = $request->input('sibling_details');
+    $student->fathers_name = $request->input('fathers_name');
+    $student->fathers_qualification = $request->input('fathers_qualification');
+    $student->fathers_email_details = $request->input('fathers_email_details');
+    $student->fathers_contact_details = $request->input('fathers_contact_details');
+    $student->fathers_occupation = $request->input('fathers_occupation');
+    $student->mothers_name = $request->input('mothers_name');
+    $student->mothers_qualification = $request->input('mothers_qualification');
+    $student->mothers_email_details = $request->input('mothers_email_details');
+    $student->mothers_contact_details = $request->input('mothers_contact_details');
+    $student->mothers_occupation = $request->input('mothers_occupation');
+    $student->address = $request->input('address');
+    $student->payment_details = $request->input('payment_details');
+    
+    
+    $category = $request->input('category');
+    if ($category === 'nursery' || $category === 'lkg' || $category === 'ukg') {
+        $student->category = $category;
+    }
+
+    $student->save();
+    return redirect()->back()->with('success', 'Student updated successfully.');
+}
+
 
     //////////////DELETE FORM//////////////////
     public function delete($id)

@@ -12,18 +12,11 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('/tailwind.css') }}">
-        <link rel="stylesheet" href="{{ asset('/fontawsome.css') }}">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
-
-
-    <!-- Custom styles for this template-->
-    <link rel="stylesheet" href="{{ asset('/bootstrap.css') }}">
-
-    <!-- <link href="{{ asset('https://startbootstrap.github.io/startbootstrap-sb-admin-2/css/sb-admin-2.min.css') }}"
-        rel="stylesheet"> -->
-
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+        <link rel="stylesheet" href="{{ asset('Css/tailwind.css') }}">
+        <link rel="stylesheet" href="{{ asset('Css/sweetalert.css') }}">
+        <link rel="stylesheet" href="{{ asset('Css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('/Css/fontawsome-all.min.css') }}">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
 <body id="page-top">
@@ -79,23 +72,13 @@
     </a>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('https://startbootstrap.github.io/startbootstrap-sb-admin-2/vendor/jquery/jquery.min.js') }}">
-    </script>
-    <script
-        src="{{ asset('https://startbootstrap.github.io/startbootstrap-sb-admin-2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}">
-    </script>
-    <!-- Core plugin JavaScript-->
-    <script
-        src="{{ asset('https://startbootstrap.github.io/startbootstrap-sb-admin-2/vendor/jquery-easing/jquery.easing.min.js') }}">
-    </script>
-    <!-- Custom scripts for all pages-->
-    <script src="{{ asset('https://startbootstrap.github.io/startbootstrap-sb-admin-2/js/sb-admin-2.min.js') }}">
-    </script>
-    <!-- Page level plugins -->
-    <script
-        src="{{ asset('https://startbootstrap.github.io/startbootstrap-sb-admin-2/vendor/chart.js/Chart.min.js') }}">
-    </script>
 
+    <script src="{{ asset('Js/bootstrap.jquery.min.js') }}"></script>
+    <script src="{{ asset('Js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('Js/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('Js/sb-admin-2.min.js') }}"></script>
+    <script src="{{ asset('Js/Chart.min.js') }}"></script>
+    <script src="{{ asset('Js/Chart.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 </body>

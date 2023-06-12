@@ -10,6 +10,8 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+
 
 class StudentExport implements FromCollection, WithHeadings, ShouldAutoSize, WithMapping, WithStyles
 {
@@ -98,10 +100,11 @@ class StudentExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
         ];
     }
 
+
     public function map($row): array
     {
         $imagePath = $row->student_image ? public_path('student_Photos/' . $row->student_image) : '';
-
+    
         return [
             $imagePath ? '=HYPERLINK("' . $imagePath . '", "View Image")' : '', // Empty box if no image selected
             $row->first_name,
@@ -127,9 +130,16 @@ class StudentExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
             $row->category,
         ];
     }
-
     public function styles(Worksheet $sheet)
     {
+        $highestRow = $sheet->getHighestRow();
+
+        $range = 'A2:A' . $highestRow;
+    
+        $sheet->getStyle($range)->getFont()->getColor()->setRGB(Color::COLOR_BLUE);
+    
+        return [];
+    
         return [
             1 => ['font' => ['bold' => true]],
         ];
